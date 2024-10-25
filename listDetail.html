@@ -4,26 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create List</title>
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Wittgenstein:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
 </head>
 <body>
-     <div>
-        <!-- list title -->
-        <label for="title">Title of list:</label>
-        <input type="text" name="title" id="title" placeholder="press enter to save to list">
-    </div>
-        
-    <div>
-        <!-- add item -->
-        <label for="addTask">Task:</label>
-        <input type="text" name="addTask" id="addTask" placeholder="press enter to save to list">
+     <div class="form-container">
+        <form id="edit-list">
+            <div class="list-attributes">
+                <!-- list title -->
+                <label for="title"></label>
+                <input type="text" class="text-input" name="title" id="title" placeholder="add title">
+            </div>  
+                
+            <div class="list-attributes">
+                <!-- add item -->
+                <label for="add-task"></label>
+                <input type="text" class="text-input" name="addTask" id="add-task" placeholder="add new task">
+            </div>
+    
+            <!-- cancel, save, delete, archive buttons -->
+            <div id="list-btns-container">
+                <input type="button" class="list-btns" value="Save List">
+                <input type="button" class="list-btns" value="Delete List">
+                <input type="button" class="list-btns" value="Archive List">
+                <input type="button" class="list-btns" value="Cancel">
+            </div>
+        </form>
      </div>
-
-     <!-- cancel, save, delete, archive buttons -->
-    <div>
-        <input type="button" value="Save List">
-        <input type="button" value="Delete List">
-        <input type="button" value="Archive List">
-        <input type="button" value="Cancel">
-    </div>
 </body>
 </html>

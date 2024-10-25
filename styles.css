@@ -1,6 +1,13 @@
-body {
+/* body {
     font-family: 'Wittgenstein', sans-serif;
     font-weight: bold;
+    width: 100%;
+} */
+
+/* to prep for flexbox */
+html, body {
+    height: 100%; /* Ensure full height for centering */
+    margin: 0; /* Remove default margin */
 }
 
 ul {
@@ -11,34 +18,34 @@ ul {
     background-color: #333;
   }
   
-  li {
+li {
     float: left;
-  }
-  
-  li a {
+}
+
+li a {
     display: block;
     color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-  }
-  
-  /* Change the link color to #111 (black) on hover */
-  li a:hover {
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
     background-color: #111;
-  }
+}
 
-  #update-PW {
+#update-PW {
     width: 80%;
-  }
+}
 
-  .holds-btn {
-    /* background-color: #437482; */
+.holds-btn {
+/* background-color: #437482; */
     display: flex;
     align-items: center;
-  }
+}
 
-#new-list {
+#add-list-btn {
     width: 2em;
     height: 2em;
     border-radius: 50%;
@@ -48,7 +55,7 @@ ul {
     background-repeat: no-repeat;
 }
 
-#new-list:hover {
+#add-list-btn:hover {
     background-color: #437482;
     transform: scale(1.2); /* Slightly larger */
 }
@@ -61,6 +68,76 @@ ul {
     height: auto;
 }
 
-#new-list:hover + .hover-text {
+#add-list-btn:hover + .hover-text {
     display: inline; /* Show text when hovering over the button */
+}
+
+
+/* #edit-list {
+    border: 2px solid black;
+    margin: 3rem;
+    padding: 2rem;
+} */
+
+/* listDetail form */
+#edit-list {
+    border: 1px solid #ccc; /* Optional: border for the form */
+    padding: 2rem; 
+    border-radius: 5px; /* Optional: rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional: shadow effect */
+    width: 70%;
+}
+
+/* form items on listDetail */
+.list-attributes {
+    padding: 0.75rem 0;
+}
+
+/* 
+#list-btns-container {
+    width: 100%;
+    margin: 1rem auto;
+} */
+
+#list-btns-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100%; 
+    margin-top: 1rem;
+}
+
+.list-btns {
+    margin: 0 0.25rem;
+}
+
+/* listDetails form container */
+.form-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100%; /* Full height */
+    margin: 1rem;
+}
+
+/* input[type="text"] {
+    width: 80%;
+} */
+
+/* add title input on listDetail */
+#title {
+    border-style: none;
+    border-bottom: 2px solid black;
+}
+
+/* #add-task {
+    width: 100%;
+    
+} */
+
+.text-input {
+    width: 90%;
+    padding: 0.5rem;
+    margin: 0;
+    text-align: center;
 }
