@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Wittgenstein:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <!-- navigation menu -->
     <div>
         <ul class="nav-bar">
@@ -18,40 +19,46 @@
         </ul>
     </div>
 
-    <div>
-        <h1>User Profile</h1>
+    <div class="page-container">
 
-        <p id="username">Username: </p>
+        <div>
+            <h1>User Profile</h1>
 
-        <p>User since: </p>
+            <p id="username">Username: </p>
 
+            <p>User since: </p>
+
+
+        </div>
+
+        <div>
+            <form action="" id="update-PW">
+                    <!-- password updating -->
+                <p>
+                    <label for="new-PW">New password:</label>
+                    <input type="text" name="new-PW" id="new-PW">
+                </p>
+
+                <p>
+                    <label for="confirm-PW">Confirm password:</label>
+                    <input type="text" name="confirm-PW" id="confirm-PW">
+                </p>
+
+                <!-- <p>
+                    <label for="currentPW">Current Password:</label>
+                    <input type="text" name="currentPW" id="currentPW">
+                </p> -->
+            </form>        
+        </div>
+
+        <div>
+            <!-- delete account -->
+            <input type="button" value="Delete Account">
+        </div>
 
     </div>
 
-    <div>
-        <form action="" id="update-PW">
-                <!-- password updating -->
-            <p>
-                <label for="new-PW">New password:</label>
-                <input type="text" name="new-PW" id="new-PW">
-            </p>
-
-            <p>
-                <label for="confirm-PW">Confirm password:</label>
-                <input type="text" name="confirm-PW" id="confirm-PW">
-            </p>
-
-            <!-- <p>
-                <label for="currentPW">Current Password:</label>
-                <input type="text" name="currentPW" id="currentPW">
-            </p> -->
-        </form>        
-    </div>
-
-    <div>
-        <!-- delete account -->
-         <input type="button" value="Delete Account">
-    </div>
+    
 </body>
 <footer>
     

@@ -10,6 +10,11 @@ html, body {
     margin: 0; /* Remove default margin */
 }
 
+h1 {
+    margin: 0;
+    padding: 0;
+}
+
 .nav-bar {
     list-style-type: none;
     margin: 0;
@@ -167,7 +172,7 @@ html, body {
 
 /* div holding task display */
 #task-list-container {
-    background-color: aqua;
+    background-color: rgb(185, 230, 230);
 }
 
 #task-list {
@@ -182,4 +187,29 @@ html, body {
     border-bottom: 1px solid #ccc; /* Optional: add a bottom border for separation */
     background-color: #f9f9f9; /* Optional: add background color for contrast */
     width: 90%;
+}
+
+
+.page-container {
+    margin: 2rem;
+    border: 0.1rem solid black;
+    padding: 1rem 1.5rem;
+}
+
+#index-page-container {
+    border: 0.1rem solid black;
+    margin: 5rem;
+    padding: 2rem;
+    text-align: center;
+
+}
+
+/* index buttons */
+#sign-up,
+#login {
+    margin: 0 0.5rem;
+}
+
+#index-title {
+    margin: 1rem;
 }
