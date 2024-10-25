@@ -11,24 +11,38 @@
 </head>
 <body>
      <div class="form-container">
+
         <form id="edit-list">
+
             <div class="list-attributes">
                 <!-- list title -->
                 <label for="title">edit title</label>
                 <input type="text" class="text-input" name="title" id="title" placeholder="add title">
             </div>  
                 
+            <!-- <div class="list-attributes"> -->
+                
+                <!-- place to show tasks as they are entered -->
+                <div id="task-list-container">
+                    <ul id="task-list"></ul>
+                </div>
+            <!-- </div> -->
+
             <div class="list-attributes">
                 <!-- add item -->
                 <label for="add-task">add task</label>
                 <input type="text" class="text-input" name="addTask" id="add-task" placeholder="add new task">
+                
+                <!-- hidden to collect all inputs for form submission -->
+                <input type="hidden" name="tasks" id="tasks">
+                
             </div>
     
             <!-- cancel, save, delete, archive buttons -->
             <div id="list-btns-container">
                 <input type="button" class="list-btns" value="Save List">
-                <input type="button" class="list-btns" value="Delete List">
-                <input type="button" class="list-btns" value="Archive List">
+                <!-- <input type="button" class="list-btns" value="Delete List">
+                <input type="button" class="list-btns" value="Archive List"> -->
                 <input type="button" class="list-btns" value="Cancel" id="cancel">
             </div>
             <script src="script.js"></script>

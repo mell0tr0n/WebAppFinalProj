@@ -10,7 +10,7 @@ html, body {
     margin: 0; /* Remove default margin */
 }
 
-ul {
+.nav-bar {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -18,21 +18,16 @@ ul {
     background-color: #333;
   }
   
-li {
+.nav-bar li {
     float: left;
 }
 
-li a {
+.nav-bar li a {
     display: block;
     color: white;
     text-align: center;
-    padding: 14px 16px;
+    padding: 1rem 1.2rem;
     text-decoration: none;
-}
-
-/* Change the link color to #111 (black) on hover */
-li a:hover {
-    background-color: #111;
 }
 
 #update-PW {
@@ -44,6 +39,10 @@ li a:hover {
     display: flex;
     align-items: center;
 }
+
+/* ul {
+    display: block;
+} */
 
 #add-list-btn {
     width: 2em;
@@ -82,15 +81,21 @@ li a:hover {
 /* listDetail form */
 #edit-list {
     border: 1px solid #ccc; /* Optional: border for the form */
-    padding: 2rem; 
+    padding: 1.5rem; 
     border-radius: 5px; /* Optional: rounded corners */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional: shadow effect */
     width: 70%;
+    margin: 3rem auto;
 }
 
 /* form items on listDetail */
 .list-attributes {
-    padding: 0.75rem 0;
+    /* padding: 0.75rem 0; */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100%; /* Full height */
+    /* margin-bottom: 1rem; */
 }
 
 /* make labels hidden but kept for accessibility */
@@ -122,17 +127,17 @@ li a:hover {
 }
 
 .list-btns {
-    margin: 0 0.25rem;
+    margin: 0 0.5rem;
 }
 
 /* listDetails form container */
-.form-container {
+/* .form-container {
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    height: 100%; /* Full height */
+    justify-content: center; 
+    align-items: center;
+    height: 100%; 
     margin: 1rem;
-}
+} */
 
 /* input[type="text"] {
     width: 80%;
@@ -154,4 +159,27 @@ li a:hover {
     padding: 0.5rem;
     margin: 0;
     text-align: center;
+}
+
+/* #task-display {
+
+} */
+
+/* div holding task display */
+#task-list-container {
+    background-color: aqua;
+}
+
+#task-list {
+    list-style-type: none; /* Remove default bullet points */
+    padding: 0.4rem 0; 
+    margin: 0; 
+}
+
+#task-list li {
+    padding: 0.5rem; /* Add padding for each task item */
+    margin: 0.25rem auto;
+    border-bottom: 1px solid #ccc; /* Optional: add a bottom border for separation */
+    background-color: #f9f9f9; /* Optional: add background color for contrast */
+    width: 90%;
 }
