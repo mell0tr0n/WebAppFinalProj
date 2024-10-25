@@ -93,6 +93,20 @@ li a:hover {
     padding: 0.75rem 0;
 }
 
+/* make labels hidden but kept for accessibility */
+.list-attributes label {
+    position: absolute; /* Position the label off-screen */
+    width: 1px; /* Reduce the width */
+    height: 1px; /* Reduce the height */
+    margin: -1px; /* Move the label out of the layout */
+    padding: 0; /* No padding */
+    border: 0; /* No border */
+    clip: rect(0, 0, 0, 0); /* Clip the label's box */
+    overflow: hidden; /* Hide overflow */
+    white-space: nowrap; /* Prevent line breaks */
+    visibility: hidden; /* Hide the label visually */
+}
+
 /* 
 #list-btns-container {
     width: 100%;
