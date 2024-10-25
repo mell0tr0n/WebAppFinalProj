@@ -1,3 +1,8 @@
+body {
+    font-family: 'Wittgenstein', sans-serif;
+    font-weight: bold;
+}
+
 ul {
     list-style-type: none;
     margin: 0;
@@ -22,3 +27,40 @@ ul {
   li a:hover {
     background-color: #111;
   }
+
+  #update-PW {
+    width: 80%;
+  }
+
+  .holds-btn {
+    /* background-color: #437482; */
+    display: flex;
+    align-items: center;
+  }
+
+#new-list {
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    border-style: none;
+    background-image: url(./images/add_icon_2.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#new-list:hover {
+    background-color: #437482;
+    transform: scale(1.2); /* Slightly larger */
+}
+
+/* add new button text */
+.hover-text {
+    display: none; /* Hide text by default */
+    margin-left: 0.5rem; /* Space between button and text */
+    font-size: 20px;
+    height: auto;
+}
+
+#new-list:hover + .hover-text {
+    display: inline; /* Show text when hovering over the button */
+}
