@@ -1,9 +1,7 @@
 # WebAppFinalProj
 
-final project web app development to-do list
+Hi! Well, I've thoroughly confused myself with different branches; here's hoping this is the right one!
 
-reqs:
-	5 HTML/CSS pages, 
-	pull data SQL DB, 
-	pull data noSQL DB, 
-	form validation
+If signing up doesnt work, you can use:
+username: mila
+password: csc441
