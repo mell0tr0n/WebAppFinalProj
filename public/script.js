@@ -5,6 +5,27 @@ document.addEventListener('DOMContentLoaded', function() {
     // code specific to INDEX.HTML  / root   
 
     if (currentPage.includes('index.html') || currentPage === '/') {
+    // toggle form display
+    const loginForm = document.getElementById('login-form');
+    const signupForm = document.getElementById('signup-form');
+    const toggleSignupButton = document.getElementById('toggle-signup');
+    const toggleLoginButton = document.getElementById('toggle-login');
+
+    // Initially show the login form
+    signupForm.classList.add('hidden');
+
+    // Event listener for toggling to the signup form
+    toggleSignupButton.addEventListener('click', function () {
+        loginForm.classList.add('hidden');
+        signupForm.classList.remove('hidden');
+    });
+
+    // Event listener for toggling back to the login form
+    toggleLoginButton.addEventListener('click', function () {
+        signupForm.classList.add('hidden');
+        loginForm.classList.remove('hidden');
+    });
+    
     // for logging in
     document.getElementById('login').addEventListener('submit', async (event) => {
         event.preventDefault(); // Prevent the default form submission

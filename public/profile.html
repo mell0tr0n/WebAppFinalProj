@@ -19,7 +19,7 @@
         </ul>
     </div>
 
-    <div class="page-container">
+    <div id="profile-container">
 
         <div>
             <h1>User Profile</h1>
@@ -30,23 +30,25 @@
         <div>
             <form action="/update" id="update-PW">
                 <!-- password updating -->
-                <div>
+                <div class="update-form">
                     <label for="new-PW">New password:</label>
                     <input type="password" name="new-PW" id="new-PW" required>
                 </div>
         
-                <div>
+                <div class="update-form">
                     <label for="confirm-PW">Confirm password:</label>
                     <input type="password" name="confirm-PW" id="confirm-PW" required>
                 </div>
-                <input type="submit" value="Update Password">
+                <div id="update-PW-btn">
+                    <input type="submit" value="Update Password" class="button">
+                </div>
             </form>        
         </div>
 
         
-        <div>
+        <div id="delete-account">
             <!-- delete account -->
-            <p><input type="button" value="Delete Account" id="delete-account-btn"></p>
+            <p><input type="button" value="Delete Account" id="delete-account-btn" class="button"></p>
         </div>
 
     </div>
