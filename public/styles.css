@@ -217,3 +217,16 @@ h1 {
 .hidden {
     display: none;
 }
+
+.completed {
+    text-decoration: line-through; /* Cross out text */
+    font-style: italic; /* Italicize text */
+    opacity: 0.7; /* 70% transparency */
+}
+
+#task-list li {
+    cursor: pointer; /* Change cursor to indicate clickable items */
+    margin: 5px 0; /* Add some spacing between items */
+    padding: 5px; /* Add some padding for better click area */
+    transition: all 0.3s ease; /* Smooth transition for style changes */
+}

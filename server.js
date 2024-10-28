@@ -4,8 +4,32 @@ require('dotenv').config();
 const path = require('path');
 const session = require('express-session');
 
+const { MongoClient } = require('mongodb');
+
 const app = express();
 const PORT = 8080;
+
+// mongo URI
+const uri = process.env.MONGODB_URI;
+const client = new MongoClient(uri);
+
+// MongoDB Collection
+let listsCollection;
+
+// Connect to MongoDB
+async function connectToDB() {
+    try {
+        await client.connect();
+        console.log('Connected to MongoDB');
+        const database = client.db('todo'); // Database name
+        listsCollection = database.collection('lists'); // Collection name
+    } catch (error) {
+        console.error('Error connecting to MongoDB:', error);
+    }
+}
+
+// connect to mongodb // Call connectToDB when the server starts
+connectToDB().catch(console.error);
 
 // Middleware to parse URL-encoded bodies (for form submissions)
 app.use(express.urlencoded({ extended: true }));
@@ -14,7 +38,68 @@ app.use(express.static(path.join(__dirname, 'public')));
 // parse json bodies
 app.use(express.json());
 
-// Session configuration
+// Route for creating a new list
+app.post('/create-list', async (req, res) => {
+    const { title, tasks } = req.body; // Destructure title and tasks from request body
+
+    // Validate that title and tasks are provided
+    if (!title || !tasks) {
+        return res.status(400).send('Title and tasks are required.');
+    }
+
+    // Ensure tasks is an array
+    if (!title || !Array.isArray(tasks) || tasks.length === 0) {
+        return res.status(400).send('Title is required and tasks must be a non-empty array.');
+    }
+
+    try {
+        // Create a new list document in MongoDB
+        const newList = {
+            title: title,
+            tasks: tasks,
+            createdAt: new Date() // Optional: timestamp for when the list is created
+        };
+
+        // Insert the new list into the MongoDB collection
+        const result = await listsCollection.insertOne(newList);
+        
+        // Send a success response
+        res.status(201).json({ message: 'List created successfully', id: result.insertedId });
+    } catch (error) {
+        console.error('Error creating list:', error);
+        res.status(500).send('Failed to create list');
+    }
+});
+
+// Route to get the most recent list
+app.get('/api/recent-list', async (req, res) => {
+    try {
+        // Find the most recent list
+        const recentList = await listsCollection.find().sort({ createdAt: -1 }).limit(1).toArray();
+        if (recentList.length > 0) {
+            res.json(recentList[0]);
+        } else {
+            res.status(404).send('No lists found.');
+        }
+    } catch (error) {
+        console.error('Error fetching recent list:', error);
+        res.status(500).send('Failed to fetch recent list.');
+    }
+});
+
+// Route to get all lists
+app.get('/api/lists', async (req, res) => {
+    try {
+        const lists = await listsCollection.find().toArray(); // Fetch all lists
+        res.json(lists);
+    } catch (error) {
+        console.error('Error fetching all lists:', error);
+        res.status(500).send('Failed to fetch lists.');
+    }
+});
+
+
+// express session configuration
 app.use(session({
     secret: process.env.SESSION_SECRET || 'your-secret-key', // Use an environment variable for security
     resave: false,

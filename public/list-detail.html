@@ -20,18 +20,17 @@
                 <input type="text" class="text-input" name="title" id="title" placeholder="add title">
             </div>  
                 
-            <!-- <div class="list-attributes"> -->
-                
-                <!-- place to show tasks as they are entered -->
-                <div id="task-list-container">
-                    <ul id="task-list"></ul>
-                </div>
-            <!-- </div> -->
+                       
+            <!-- place to show tasks as they are entered -->
+            <div id="task-list-container">
+                <ul id="task-list"></ul>
+            </div>
+            
 
             <div class="list-attributes">
                 <!-- add item -->
                 <label for="add-task">add task</label>
-                <input type="text" class="text-input" name="addTask" id="add-task" placeholder="add new task">
+                <input type="text" class="text-input" name="add-task" id="add-task" placeholder="add new task">
                 
                 <!-- hidden to collect all inputs for form submission -->
                 <input type="hidden" name="tasks" id="tasks">
@@ -40,7 +39,7 @@
     
             <!-- cancel, save, delete, archive buttons -->
             <div id="list-btns-container">
-                <input type="button" class="list-btns" value="Save List">
+                <input type="button" class="list-btns" value="Save List" id="save-list">
                 <!-- <input type="button" class="list-btns" value="Delete List">
                 <input type="button" class="list-btns" value="Archive List"> -->
                 <input type="button" class="list-btns" value="Cancel" id="cancel">

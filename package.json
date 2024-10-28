@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express-session": "^1.18.1"
+    "express-session": "^1.18.1",
+    "mongodb": "^6.10.0"
   }
 }

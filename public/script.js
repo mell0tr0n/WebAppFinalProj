@@ -98,12 +98,151 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('add-list-btn').addEventListener('click', function() {
         window.location.href = 'list-detail.html'; // Navigate to list-detail.html
         });
+
+        // Function to fetch and display the most recent list
+        async function fetchRecentList() {
+            try {
+                const response = await fetch('/api/recent-list');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const list = await response.json();
+                displayList(list);
+            } catch (error) {
+                console.error('Error fetching recent list:', error);
+                document.getElementById('list-details').textContent = 'Could not load the recent list.';
+            }
+        }
+
+        // Function to fetch and display all list titles
+        async function fetchAllLists() {
+            try {
+                const response = await fetch('/api/lists');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const lists = await response.json();
+                const titlesList = document.getElementById('list-titles');
+                titlesList.innerHTML = ''; // Clear existing titles
+
+                lists.forEach(list => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = list.title;
+                    listItem.onclick = () => displayList(list); // Add click event to display the selected list
+                    titlesList.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error('Error fetching all lists:', error);
+                document.getElementById('all-lists').textContent = 'Could not load lists.';
+            }
+        }
+
+        // Function to display the selected list
+        function displayList(list) {
+            document.getElementById('list-title').textContent = list.title;
+            const taskList = document.getElementById('task-list');
+            taskList.innerHTML = ''; // Clear any existing tasks
+
+            list.tasks.forEach((task) => {
+                console.log('Task data:', task); // Log task data to see its structure
+
+                const listItem = document.createElement('li');
+                listItem.textContent = task; // Directly set text content since task is a string
+                listItem.dataset.taskId = task._id; // Store the task ID in a data attribute if available
+
+                // Add styles for completed tasks
+                if (task.completed) { // Check if the task is already marked as complete
+                    listItem.classList.add('completed');
+                    listItem.style.textDecoration = 'line-through';
+                    listItem.style.fontStyle = 'italic';
+                    listItem.style.opacity = '0.7'; // 70% transparency
+                }
+
+                // Add click event to toggle complete status
+                listItem.addEventListener('click', async () => {
+                    const isComplete = listItem.classList.toggle('completed');
+                    const taskId = listItem.dataset.taskId; // Get the task ID from the data attribute
+                    await updateTaskStatus(taskId, isComplete);
+
+                    // Update styles based on completion
+                    if (isComplete) {
+                        listItem.style.textDecoration = 'line-through';
+                        listItem.style.fontStyle = 'italic';
+                        listItem.style.opacity = '0.7'; // 70% transparency
+                    } else {
+                        listItem.style.textDecoration = 'none';
+                        listItem.style.fontStyle = 'normal';
+                        listItem.style.opacity = '1'; // Reset to full opacity
+                    }
+                });
+
+                taskList.appendChild(listItem);
+            });
+        }
+
+        // Function to update the task status in the database
+        async function updateTaskStatus(taskId, isComplete) {
+            try {
+                const response = await fetch(`/api/tasks/${taskId}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ completed: isComplete })
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to update task status');
+                }
+                // Optionally, you can handle UI changes based on success
+            } catch (error) {
+                console.error('Error updating task status:', error);
+            }
+        }
+
+        // Call the functions to fetch the recent list and all lists when the page loads
+        window.onload = () => {
+            fetchRecentList();
+            fetchAllLists();
+        };
     }
 
     // specific to LIST-DETAIL.HTML
     if (currentPage.includes('list-detail.html')) {
 
-        // cancel button for create list
+        // save list button functionality
+        document.getElementById('save-list').addEventListener('click', async () => {
+            const title = document.getElementById('title').value;
+            const tasks = Array.from(document.querySelectorAll('#task-list li')).map(li => li.textContent);
+          
+            // Prepare the data to be sent to the server
+            const listData = {
+              title: title,
+              tasks: tasks
+            };
+          
+            try {
+              const response = await fetch('/create-list', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(listData)
+              });
+          
+              const result = await response.json(); // Assuming your server responds with JSON
+              if (response.ok) {
+                alert('List saved successfully!');
+                // Optionally redirect to another page
+                window.location.href = '/dashboard.html'; // Redirect to dashboard after saving
+              } else {
+                alert('Failed to save the list: ' + result.message);
+              }
+            } catch (error) {
+              console.error('Error saving list:', error);
+            }
+          });
+
+        // cancel button functionality for create list
         document.getElementById('cancel').addEventListener('click', function() {
         window.location.href = 'dashboard.html'; // Navigate to list-detail.html
         });
@@ -212,11 +351,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
             }
         });
-    }
-
-    
-
-    
+    } 
 
     // Common code for all pages 
     
