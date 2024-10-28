@@ -76,12 +76,12 @@ app.post('/login', async (req, res) => {
     }
 });
 
-// Sign up route
+// sign up route
 app.post('/signup', async (req, res) => {
     const { username, password } = req.body;
 
     // Ensure that passwords match
-    if (req.body.password !== req.body['confirm-password']) {
+    if (req.body['new-password'] !== req.body['confirm-password']) {
         return res.status(400).send('Passwords do not match.');
     }
 
@@ -91,7 +91,7 @@ app.post('/signup', async (req, res) => {
             'INSERT INTO users (username, password) VALUES (?, ?)',
             [username, password]
         );
-        // console.log('User registered:', result);
+        console.log('User registered:', result);
 
         // Store user data in session
         req.session.user = {
@@ -99,8 +99,8 @@ app.post('/signup', async (req, res) => {
             created_at: new Date() // Or fetch from database if you need to
         };
         
-        // Redirect to profile after successful registration
-        res.redirect('/profile.html');
+        // Send a JSON response indicating success
+        res.json({ success: true, redirectUrl: '/profile.html' });
     } catch (err) {
         console.error('Error during registration:', err);
         res.status(500).send('Error creating user. Username may already exist.');

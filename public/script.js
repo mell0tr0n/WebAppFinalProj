@@ -1,38 +1,111 @@
 document.addEventListener('DOMContentLoaded', function() {
     const currentPage = window.location.pathname; // Get the current page path
 
-    document.addEventListener('DOMContentLoaded', () => {
-        fetch('/api/user') // API endpoint to fetch user session data
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                }
-                throw new Error('User not logged in');
-            })
-            .then(data => {
-                document.getElementById('username-display').textContent = data.username;
-                document.getElementById('created-at-display').textContent = new Date(data.created_at).toLocaleDateString();
-            })
-            .catch(error => {
-                console.error('Error fetching user data:', error);
-            });
-    });
+         
+    // code specific to INDEX.HTML  / root   
 
-    // specific to dashboard.html
+    if (currentPage.includes('index.html') || currentPage === '/') {
+    // for logging in
+    document.getElementById('login').addEventListener('submit', async (event) => {
+        event.preventDefault(); // Prevent the default form submission
+    
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+    
+        try {
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json' // Set content type to JSON
+                },
+                body: JSON.stringify({ username, password }) // Send the username and password as JSON
+            });
+        
+            // Check if the response is not successful
+            if (!response.ok) {
+                const errorMessage = await response.text(); // Attempt to read the error message as text
+                console.log('Error message from server:', errorMessage); // Log the error message for debugging
+
+                    // Display a specific error message for "Incorrect password"
+                    if (errorMessage.includes('Incorrect password')) {
+                        alert('Incorrect password');
+                    } else {
+                        alert(errorMessage || 'Login failed'); // Show the returned error or a default message
+                    }
+                } else {
+                    // If login is successful, redirect to the dashboard
+                    window.location.href = '/dashboard.html';
+                }
+            } catch (error) {
+                console.error('Error during login:', error);
+                alert('An unexpected error occurred during login.'); // Display an alert for unexpected errors
+            }
+        });
+
+        // for signing up
+        // Get the submit button
+        const submitButton = document.getElementById('signup-submit');
+
+        // Add an event listener to the submit button
+        submitButton.addEventListener('click', async (event) => {
+            event.preventDefault(); // Prevent the default form submission
+
+            console.log('current page', currentPage);
+
+            // Get the input values from the form
+            const username = document.getElementById('new-username').value;
+            const password = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            console.log('username', username);
+            console.log('pw', password);
+            console.log('cpw', confirmPassword);
+
+            // Validate that the passwords match
+            if (password !== confirmPassword) {
+                alert('Passwords must match'); // Show alert if passwords do not match
+                return; // Stop the execution if passwords do not match
+            }
+
+            // Proceed with signup
+            try {
+                const response = await fetch('/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json' // Set content type to JSON
+                    },
+                    body: JSON.stringify({ username, password }) // Send the username and password as JSON
+                });
+
+                const data = await response.json(); // Parse the JSON response
+                if (response.ok && data.success) {
+                    // Redirect to the provided URL
+                    window.location.href = data.redirectUrl;
+                } else {
+                    alert(data.message || 'Error during signup'); // Display error message
+                }
+            } catch (error) {
+                console.error('Error during signup:', error);
+            }
+        });
+        
+    }
+    
+    // specific to DASHBOARD.HTML
     if (currentPage.includes('dashboard.html')) {
         
         // add new button (on dashboard)
         document.getElementById('add-list-btn').addEventListener('click', function() {
-        window.location.href = 'listDetail.html'; // Navigate to listDetail.html
+        window.location.href = 'list-detail.html'; // Navigate to list-detail.html
         });
     }
 
-    // specific to listDetail.html
-    if (currentPage.includes('listDetail.html')) {
+    // specific to LIST-DETAIL.HTML
+    if (currentPage.includes('list-detail.html')) {
 
         // cancel button for create list
         document.getElementById('cancel').addEventListener('click', function() {
-        window.location.href = 'dashboard.html'; // Navigate to listDetail.html
+        window.location.href = 'dashboard.html'; // Navigate to list-detail.html
         });
 
         // display task input vars
@@ -57,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // specific to profile.html
+    // specific to PROFILE.HTML
 
     if (currentPage.includes('profile.html')) {
         // get user data to display
@@ -141,40 +214,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // code specific to index.html        
     
-        //for toggling forms
-    if (currentPage.includes('index.html')) {
-        // for logging in
-        document.getElementById('login').addEventListener('submit', async (event) => {
-            event.preventDefault(); // Prevent the default form submission
-        
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-        
-            try {
-                const response = await fetch('/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json' // Set content type to JSON
-                    },
-                    body: JSON.stringify({ username, password }) // Send the username and password as JSON
-                });
-        
-                const data = await response.text(); // Read the response
-        
-                if (response.ok) {
-                    alert(data); // Display success message
-                    // Optionally, redirect to a dashboard or another page
-                } else {
-                    alert(data); // Display error message
-                }
-            } catch (error) {
-                console.error('Error during login:', error);
-            }
-        });
 
-    }
+    
 
     // Common code for all pages 
     
